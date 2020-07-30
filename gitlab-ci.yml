@@ -1,0 +1,21 @@
+
+###########################################################
+# Configuration
+
+variables:
+  GIT_SUBMODULE_STRATEGY: none
+  BASE_IMAGE:             "$CI_REGISTRY_IMAGE:base"
+  BUILD_IMAGE:            "$CI_REGISTRY_IMAGE:build-$CI_PIPELINE_ID"
+  LATEST_BUILD_IMAGE:     "$CI_REGISTRY_IMAGE:latest-build"
+  BRANCH_IMAGE:           "$CI_REGISTRY_IMAGE:branch-$CI_BUILD_REF_SLUG"
+  RELEASE_IMAGE:          "$CI_REGISTRY_IMAGE:latest"
+
+stages:
+- build
+
+##########################################################
+# Build time
+main:
+  stage: build
+  script:
+    - echo "Hello World!"
