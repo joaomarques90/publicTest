@@ -1,0 +1,87 @@
+--------------------------------------------------- // ---------------------------------------------------
+
+                                        ....::: OBJECTIVES :::....
+
+Objective 1: 
+            Clone a GitHub repository in GitHub and have it automatically updated 
+
+Objective 2: 
+            Fork the previous cloned repository to develop on something (dev_repo)
+
+Objective 3: 
+            When the forked repository is created:      push it to GitLab for Pipeline-CI usage
+            Everytime the forked repository is updated: push it to GitLab for Pipeline-CI usage
+
+
+--------------------------------------------------- // ---------------------------------------------------
+
+                                          ....::: CASES :::....
+
+                                The following cases happen within GitHub.com
+
+CASE 1: Non-Accessible-Permitted Repository
+        
+        - Fork the desired repository-branch                                 (usually master)
+        - Create webhook inside that (personal) forked repository 
+        - Create instance to observe new push and feed-RSS                   (ATOM-RSS)
+            
+            --> When updated, the instance will receive the RSS-notification
+                and will immediatly update the forked repository
+
+
+CASE 2: Accessible-Permitted Repository
+
+        - Fork the desired repository-branch                        (usually master)
+        - Create webhook inside that (personal) forked repository 
+
+
+Note: 
+    It's must be cloned the new repository and work on that result
+    so that it keeps updating while you develop (ex: master_repo --fork--> dev_repo ::: work on dev_repo)
+
+
+--------------------------------------------------- // ---------------------------------------------------
+
+                                          ....::: STEPS :::....
+
+1 - Git API-Access 
+    1.1 - token-API GitLab 
+    1.2 - token-API GitHub
+
+2 - GitHub-Webhook 
+    2.1 - Create for events "push", "meta"
+    2.2 - URL Payload (TypeScript)
+
+// for TypeScript
+3 - Repositories' Names
+    3.1 - Name of Source Repository  (*)
+    3.2 - Name of Destiny Repository (when not given will be used the source repo name)
+
+
+
+--------------------------------------------------- // ---------------------------------------------------
+
+                                          ....::: EVENTS :::....
+
+a - "push"
+
+    a.1 - Parse to which GitLab-token that webhook is associated  (JSON && TABLE-file)  »» check for success
+    a.2 - PULL the repository (full ?) to local folder            (GitHub-token)        »» check for success (timeout)
+    a.3 - PUSH the downloaded git to respective GitLab Repository (GitLab-token)        »» check for success (timeout)
+    a.4 - Clear downloaded git
+
+
+b - "meta"
+
+    b.1 - Parse to which GitLab-token that webhook is associated           (JSON && TABLE-file)  »» check for success
+    b.2 - COMMIT COMMENT (webhook removed) to respective GitLab Repository (GitLab-token)        »» check for success (timeout)
+
+
+--------------------------------------------------- // ---------------------------------------------------
+
+                                          ....::: ISSUES :::....
+
+    a.3 - Timeout -> what to do?
+    a.4 - Timeout -> what to do?
+    b.2 - Timeout -> what to do?
+
